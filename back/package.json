@@ -7,16 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jubany/pf-ecommerce-backend.git"
-  },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jubany/pf-ecommerce-backend/issues"
-  },
-  "homepage": "https://github.com/jubany/pf-ecommerce-backend#readme",
   "dependencies": {
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
