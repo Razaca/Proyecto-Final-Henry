@@ -1,10 +1,10 @@
-const Product = require("../models/Product");
 const {
   findAllProducts,
   findProductById,
   createProduct,
   findAndDelete,
   updateProduct,
+  findProductsByFilter,
 } = require("../controllers/product.controller");
 
 const getProducts = async (req, res) => {
@@ -82,10 +82,22 @@ const putProduct = async (req, res) => {
   }
 };
 
+const getFilterProduct = async (req, res) => {
+  const { category, color, size, gender } = req.query;
+  try {
+    const products = await findProductsByFilter(category, color, size, gender);
+    res.json(products);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json(error.message);
+  }
+};
+
 module.exports = {
   getProducts,
   postProduct,
   getProductById,
   deleteProduct,
   putProduct,
+  getFilterProduct,
 };

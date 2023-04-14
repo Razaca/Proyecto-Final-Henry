@@ -6,17 +6,22 @@ const {
   getProductById,
   deleteProduct,
   putProduct,
+  getFilterProduct
 } = require("../handlers/product.handler");
 
-/* trabaja con todos los productos */
+/* trae todos los productos */
 router.get("/", getProducts);
 
-/* trabaja con un unico producto */
-router.get("/:id", getProductById);
+/* trae un unico producto */
+router.get("/id/:id", getProductById);
+
+/* trae productos dependiendo los filtro q se le den por query */
+router.get("/filter", getFilterProduct);
 
 /* agrega un producto a la base de datos */
 router.post("/", postProduct);
 
+/* modificar un producto */
 router.put("/:id", putProduct);
 
 /* elimnina un producto por id */

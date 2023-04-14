@@ -30,6 +30,34 @@ const findProductById = async (id) => {
   }
 };
 
+const findProductsByFilter = async (category, color, size, gender) => {
+  try {
+    let products = await Product.find();
+
+    if (category) {
+      products = products.filter((product) =>
+        product.category.includes(category)
+      );
+    }
+
+    if (color) {
+      products = products.filter((product) => product.color.includes(color));
+    }
+
+    if (size) {
+      products = products.filter((product) => product.size.includes(size));
+    }
+
+    if (gender) {
+      products = products.filter((product) => product.gender.includes(gender));
+    }
+
+    return products;
+  } catch (error) {
+    throw new Error(error);
+  }
+};
+
 const findAndDelete = async (id) => {
   try {
     const deletedProduct = await Product.findByIdAndDelete(id);
@@ -89,4 +117,5 @@ module.exports = {
   findAndDelete,
   findProductByName,
   updateProduct,
+  findProductsByFilter,
 };

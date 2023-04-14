@@ -1,14 +1,22 @@
 require("dotenv").config();
 const express = require("express");
+const session = require("express-session");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const routes = require("./routes/index.js");
-/* const passport = require("./config/passport.js");*/
+const passport = require("passport");
 const server = express();
+require("./services/passport.js");
 
 server.name = "API";
-
+server.use(
+  session({
+    secret: "secret-key",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 /* connect to mongoDB */
 mongoose
   .connect(process.env.URI_DB, {
@@ -20,7 +28,6 @@ mongoose
   })
   .catch((err) => console.log(err));
 /* ***************** */
-
 
 server.use(bodyParser.urlencoded({ extended: true, limit: "50mb" }));
 server.use(bodyParser.json({ limit: "50mb" }));
@@ -36,7 +43,8 @@ server.use((req, res, next) => {
   next();
 });
 
-/* server.use(passport.initialize());*/
+server.use(passport.initialize());
+server.use(passport.session());
 server.use("/", routes);
 
 // Error catching endware.
