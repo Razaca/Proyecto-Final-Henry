@@ -1,7 +1,6 @@
 require("dotenv").config();
 const jwt = require("jsonwebtoken");
 const { Router } = require("express");
-const {} = require("../handlers/user.handler");
 const passport = require("passport");
 const router = Router();
 
