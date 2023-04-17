@@ -9,9 +9,9 @@ const findAllCategories = async () => {
   }
 };
 
-const createCategory = async (category) => {
+const createCategory = async (name) => {
   try {
-    const newCategory = await Category.create({ category });
+    const newCategory = await Category.create({ name });
     return newCategory;
   } catch (error) {
     throw new Error(error);
@@ -20,8 +20,14 @@ const createCategory = async (category) => {
 
 const findAndDeleteCategory = async (id) => {
   try {
-    const categoryDeleted = await Category.findOneAndDelete(id);
-    return categoryDeleted;
+    const deletedCategory = await Category.findByIdAndDelete(id);
+    if (!deletedCategory) {
+      throw new Error("No encontrado");
+    }
+    return {
+      message: "Color eliminado satisfactoriamente",
+      category: deletedCategory,
+    };
   } catch (error) {
     throw new Error(error);
   }

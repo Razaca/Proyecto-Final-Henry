@@ -15,9 +15,9 @@ const getCategories = async (req, res) => {
 };
 
 const postCategory = async (req, res) => {
-  const { category } = req.body;
+  const { name } = req.body;
   try {
-    const data = await createCategory(category);
+    const data = await createCategory(name);
     res.json(data);
   } catch (error) {
     console.error(error);

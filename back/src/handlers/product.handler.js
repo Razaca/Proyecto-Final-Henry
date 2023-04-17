@@ -5,6 +5,7 @@ const {
   findAndDelete,
   updateProduct,
   findProductsByFilter,
+  findProductByName,
 } = require("../controllers/product.controller");
 
 const getProducts = async (req, res) => {
@@ -83,9 +84,15 @@ const putProduct = async (req, res) => {
 };
 
 const getFilterProduct = async (req, res) => {
-  const { category, color, size, gender } = req.query;
+  const { category, color, size, gender, name } = req.query;
+  let products;
   try {
-    const products = await findProductsByFilter(category, color, size, gender);
+    if (name) {
+      products = await findProductByName(name);
+    } else {
+      products = await findProductsByFilter(category, color, size, gender);
+    }
+
     res.json(products);
   } catch (error) {
     console.error(error);
